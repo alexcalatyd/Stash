@@ -1,0 +1,183 @@
+@import 'tailwindcss';
+
+/* Mismo lenguaje que Tap. El panel de la barra es cristal nativo (transparente
+   aquí); la ventana de la app es opaca. */
+
+:root {
+  color-scheme: light dark;
+
+  --accent: #0a84ff;
+  --label: rgba(0, 0, 0, 0.86);
+  --label-2: rgba(0, 0, 0, 0.52);
+  --label-3: rgba(0, 0, 0, 0.3);
+  --surface: rgba(255, 255, 255, 0.58);
+  --well: rgba(0, 0, 0, 0.055);
+  --well-2: rgba(0, 0, 0, 0.09);
+  --knob: #fff;
+  --edge: rgba(0, 0, 0, 0.07);
+  --shine: rgba(255, 255, 255, 0.75);
+  --hit: color-mix(in srgb, var(--accent) 22%, transparent);
+  --danger: #e5352b;
+  --veil: rgba(246, 246, 248, 0.32);
+  --window: #ececee;
+  --card: #fff;
+  --sheet: #f6f6f8;
+
+  --ease-apple: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --rounded: ui-rounded, -apple-system, sans-serif;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--label);
+  -webkit-font-smoothing: antialiased;
+}
+
+@supports (color: AccentColor) {
+  :root {
+    --accent: AccentColor;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --label: rgba(255, 255, 255, 0.93);
+    --label-2: rgba(255, 255, 255, 0.56);
+    --label-3: rgba(255, 255, 255, 0.3);
+    --surface: rgba(255, 255, 255, 0.1);
+    --well: rgba(255, 255, 255, 0.06);
+    --well-2: rgba(255, 255, 255, 0.1);
+    --knob: rgba(255, 255, 255, 0.16);
+    --edge: rgba(255, 255, 255, 0.09);
+    --shine: rgba(255, 255, 255, 0.14);
+    --hit: color-mix(in srgb, var(--accent) 40%, transparent);
+    --danger: #ff6257;
+    --veil: rgba(30, 30, 32, 0.32);
+    --window: #1e1e20;
+    --card: #2a2a2d;
+    --sheet: #262628;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+html.panel body {
+  background: var(--veil);
+}
+html.settings body {
+  background: var(--window);
+}
+
+/* Solo en el navegador (npm run dev): fondo y marco para ver el panel. */
+html.in-browser {
+  background:
+    radial-gradient(50% 50% at 15% 10%, #ffcfb3, transparent), radial-gradient(60% 60% at 90% 90%, #b5d0ff, transparent), #e6e6ec;
+  display: grid;
+  place-items: center;
+}
+html.in-browser body {
+  border-radius: 22px;
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.12),
+    0 20px 60px rgba(0, 0, 0, 0.22);
+}
+html.in-browser.panel body {
+  width: 320px;
+  height: 460px;
+  backdrop-filter: blur(30px) saturate(180%);
+  background: rgba(255, 255, 255, 0.45);
+}
+html.in-browser.settings body {
+  width: 420px;
+  height: 700px;
+  border-radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  html.in-browser {
+    background:
+      radial-gradient(50% 50% at 15% 10%, #4a2f3a, transparent), radial-gradient(60% 60% at 90% 90%, #1d3557, transparent), #161618;
+  }
+  html.in-browser.panel body {
+    background: rgba(40, 40, 44, 0.5);
+  }
+}
+
+:focus {
+  outline: none;
+}
+button {
+  font: inherit;
+  color: inherit;
+  cursor: default;
+}
+input {
+  font: inherit;
+  color: inherit;
+}
+
+.scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--well-2) transparent;
+}
+
+/* Superficie elevada (campo de búsqueda, píldora seleccionada), como en Tap. */
+.raised {
+  background: var(--surface);
+  box-shadow:
+    inset 0 0.5px 0 var(--shine),
+    0 0 0 0.5px var(--edge),
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 8px 24px rgba(0, 0, 0, 0.07);
+}
+.knob {
+  background: var(--knob);
+  box-shadow:
+    inset 0 0.5px 0 var(--shine),
+    0 0 0 0.5px var(--edge),
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+mark {
+  background: var(--hit);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+  margin: 0 -1px;
+}
+
+.checker {
+  background-color: var(--well);
+  background-image:
+    linear-gradient(45deg, var(--well) 25%, transparent 25%), linear-gradient(-45deg, var(--well) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--well) 75%), linear-gradient(-45deg, transparent 75%, var(--well) 75%);
+  background-size: 12px 12px;
+  background-position:
+    0 0,
+    0 6px,
+    6px -6px,
+    -6px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
