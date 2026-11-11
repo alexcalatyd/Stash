@@ -16,6 +16,10 @@ links, colors, images and files — and brings it back with **⌥⌘V**.
 No Dock icon, no window to manage, no permissions to grant. Press the
 shortcut, type a few letters, hit Enter.
 
+<p align="center">
+  <img src="docs/screenshot.png" alt="Stash's panel hanging from the menu bar, next to its settings window" width="800">
+</p>
+
 ## Index
 
 - [Why](#why)
