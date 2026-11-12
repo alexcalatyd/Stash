@@ -11,7 +11,7 @@
 
 Everything you copy, one shortcut away. Stash is a clipboard history for
 macOS that lives in the menu bar: it quietly keeps what you copy — text,
-links, colors, images and files — and brings it back with **⌥⌘V**.
+links, colors, images and files — and brings it back with **⌃⌥V**.
 
 No Dock icon, no window to manage, no permissions to grant. Press the
 shortcut, type a few letters, hit Enter.
@@ -72,7 +72,7 @@ after a restart. You can turn that off in its settings.
 
 1. Copy things as usual. Stash keeps them in the background, even if you
    never open it.
-2. Press **⌥⌘V** (or click the icon in the menu bar).
+2. Press **⌃⌥V** (or click the icon in the menu bar).
 3. Type to search, move with the arrows, press **Enter** to copy.
 
 Then paste wherever you want with ⌘V. Copying something that's already in
@@ -88,7 +88,7 @@ settings window switches it, menus included, and remembers your choice.
 
 | Shortcut | Action |
 |---|---|
-| **⌥⌘V** | Open or close the panel, from anywhere |
+| **⌃⌥V** | Open or close the panel, from anywhere |
 | **↩** | Copy the selected item |
 | **⇧↩** | Copy as plain text (no formatting) |
 | **⌘1** … **⌘9** | Copy one of the first nine items |
@@ -183,7 +183,7 @@ Then open Safari's Develop menu to inspect the panel's web view.
 ## Known limitations
 
 - **Apple Silicon only**, macOS 14 or later, and for now built from source.
-- The shortcut is fixed to ⌥⌘V.
+- The shortcut is fixed to ⌃⌥V.
 - You can't exclude specific apps yet (password managers are already
   skipped).
 - Selecting an item copies it; you still paste it yourself with ⌘V.

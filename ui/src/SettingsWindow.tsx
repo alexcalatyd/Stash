@@ -52,7 +52,7 @@ export default function SettingsWindow() {
         {/* El atajo principal, en grande */}
         <section className="flex flex-col items-center pt-3 pb-7">
           <div className="flex gap-2">
-            {['⌥', '⌘', 'V'].map((k) => (
+            {['⌃', '⌥', 'V'].map((k) => (
               <span
                 key={k}
                 className="knob grid size-[52px] place-items-center rounded-[14px] font-[family-name:var(--rounded)] text-[22px] font-medium text-[var(--label)]"

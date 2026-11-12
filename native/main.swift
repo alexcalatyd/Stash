@@ -339,7 +339,7 @@ final class Panel: NSPanel {
     override var canBecomeMain: Bool { false }
 }
 
-// MARK: - Atajo global (⌥⌘V) con Carbon: no necesita permisos
+// MARK: - Atajo global (⌃⌥V) con Carbon: no necesita permisos
 
 private var hotKeyAction: (() -> Void)?
 
@@ -352,7 +352,7 @@ func registerHotKey(_ action: @escaping () -> Void) {
     }, 1, &spec, nil, nil)
     var ref: EventHotKeyRef?
     let id = EventHotKeyID(signature: OSType(0x53_54_53_48), id: 1) // «STSH»
-    RegisterEventHotKey(UInt32(kVK_ANSI_V), UInt32(cmdKey | optionKey), id, GetApplicationEventTarget(), 0, &ref)
+    RegisterEventHotKey(UInt32(kVK_ANSI_V), UInt32(controlKey | optionKey), id, GetApplicationEventTarget(), 0, &ref)
 }
 
 // MARK: - Franja superior de la ventana de ajustes para arrastrarla
@@ -442,7 +442,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, WKSc
         button.target = self
         button.action = #selector(statusClicked)
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
-        button.toolTip = "Stash — ⌥⌘V"
+        button.toolTip = "Stash — ⌃⌥V"
     }
 
     private func updateStatusIcon(symbol: String? = nil) {
@@ -472,7 +472,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, WKSc
     private func showStatusMenu() {
         hidePanel()
         let menu = NSMenu()
-        menu.addItem(item(tr("Abrir historial", "Open History"), #selector(openFromMenu), key: "v", modifiers: [.command, .option]))
+        menu.addItem(item(tr("Abrir historial", "Open History"), #selector(openFromMenu), key: "v", modifiers: [.control, .option]))
         menu.addItem(item(tr("Ajustes…", "Settings…"), #selector(openSettings), key: ","))
         menu.addItem(.separator())
         menu.addItem(item(tr("Salir de Stash", "Quit Stash"), #selector(NSApplication.terminate(_:)), key: "q", target: NSApp))
@@ -732,7 +732,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, WKSc
     private func settingsEvent() -> [String: Any] {
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
         return ["type": "settings", "limit": store.limit, "paused": watcher.paused,
-                "launchAtLogin": SMAppService.mainApp.status == .enabled, "shortcut": "⌥⌘V",
+                "launchAtLogin": SMAppService.mainApp.status == .enabled, "shortcut": "⌃⌥V",
                 "version": version, "lang": english ? "en" : "es"]
     }
 

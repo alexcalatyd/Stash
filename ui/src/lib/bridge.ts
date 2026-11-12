@@ -99,7 +99,7 @@ let mock: Item[] = [
   { id: '9', kind: 'text', text: `export function useDebounce<T>(value: T, delay = 200) {\n  const [v, setV] = useState(value)\n  useEffect(() => {\n    const t = setTimeout(() => setV(value), delay)\n    return () => clearTimeout(t)\n  }, [value, delay])\n  return v\n}`, app: 'Visual Studio Code', date: Date.now() - 3 * 24 * 60 * min, pinned: false, rich: true },
   { id: '10', kind: 'link', text: 'https://magicui.design/docs/components/blur-fade', app: 'Arc', date: Date.now() - 9 * 24 * 60 * min, pinned: false },
 ]
-let mockSettings: Settings = { limit: 500, paused: false, launchAtLogin: true, shortcut: '⌥⌘V', version: '1.0', lang: 'es' }
+let mockSettings: Settings = { limit: 500, paused: false, launchAtLogin: true, shortcut: '⌃⌥V', version: '1.1', lang: 'es' }
 
 function emit(e: NativeEvent) {
   setTimeout(() => window.__native?.(e), 0)
