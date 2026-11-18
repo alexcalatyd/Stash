@@ -22,6 +22,8 @@ export default function Panel() {
   const [copied, setCopied] = useState<string | null>(null)
   const input = useRef<HTMLInputElement>(null)
   const list = useRef<HTMLDivElement>(null)
+  const [glide, setGlide] = useState(true)
+  const pointer = useRef<{ x: number; y: number } | null>(null)
 
   useEffect(() => {
     const off = onNativeEvent((e) => {
@@ -34,6 +36,7 @@ export default function Panel() {
         setSelected(0)
         setPreview(false)
         setCopied(null)
+        pointer.current = null
         setNow(Date.now())
         setOpening((n) => n + 1)
         list.current?.scrollTo({ top: 0 })
@@ -67,6 +70,14 @@ export default function Panel() {
     setCopied(item.id)
     setTimeout(() => send({ type: 'copy', id: item.id, plain }), 240)
   }, [])
+  // WebKit lanza mousemove al hacer scroll aunque el ratón no se mueva: solo cuenta si cambió de sitio.
+  const hover = useCallback((index: number, e: React.MouseEvent) => {
+    const last = pointer.current
+    pointer.current = { x: e.screenX, y: e.screenY }
+    if (!last || (last.x === e.screenX && last.y === e.screenY)) return
+    setGlide(false)
+    setSelected(index)
+  }, [])
   const pin = useCallback((item: Item) => send({ type: 'pin', id: item.id }), [])
   const remove = useCallback((item: Item) => send({ type: 'remove', id: item.id }), [])
 
@@ -81,6 +92,7 @@ export default function Panel() {
     }
     const move = (to: number) => {
       e.preventDefault()
+      setGlide(true)
       setSelected(Math.max(0, Math.min(shown.length - 1, to)))
     }
     if (e.key === 'ArrowDown') return move(cmd ? shown.length - 1 : selected + 1)
@@ -165,10 +177,11 @@ export default function Panel() {
               item={item}
               index={index}
               selected={index === selected}
+              glide={glide}
               copied={copied === item.id}
               terms={terms}
               now={now}
-              onSelect={setSelected}
+              onHover={hover}
               onCopy={copy}
               onPin={pin}
               onRemove={remove}

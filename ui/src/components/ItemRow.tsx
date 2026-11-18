@@ -97,16 +97,18 @@ interface Props {
   item: Item
   index: number
   selected: boolean
+  /** La selección se desliza (teclado) o salta al instante (ratón). */
+  glide: boolean
   copied: boolean
   terms: string[]
   now: number
-  onSelect: (index: number) => void
+  onHover: (index: number, e: React.MouseEvent) => void
   onCopy: (item: Item) => void
   onPin: (item: Item) => void
   onRemove: (item: Item) => void
 }
 
-export const ItemRow = memo(function ItemRow({ item, index, selected, copied, terms, now, onSelect, onCopy, onPin, onRemove }: Props) {
+export const ItemRow = memo(function ItemRow({ item, index, selected, glide, copied, terms, now, onHover, onCopy, onPin, onRemove }: Props) {
   const t = useStrings()
   const lang = useLang()
   return (
@@ -114,7 +116,7 @@ export const ItemRow = memo(function ItemRow({ item, index, selected, copied, te
       data-index={index}
       role="option"
       aria-selected={selected}
-      onMouseMove={() => !selected && onSelect(index)}
+      onMouseMove={(e) => !selected && onHover(index, e)}
       onClick={() => onCopy(item)}
       // Entrada escalonada al abrir el panel (como el BlurFade de Magic UI).
       initial={index < 10 ? { opacity: 0, y: 6, filter: 'blur(3px)' } : false}
@@ -125,8 +127,8 @@ export const ItemRow = memo(function ItemRow({ item, index, selected, copied, te
       {selected && (
         <motion.div
           layoutId="row-selection"
-          className={cn('knob absolute inset-0 rounded-[14px] transition-[background] duration-200', copied && 'bg-[color-mix(in_srgb,var(--accent)_16%,var(--knob))]')}
-          transition={{ type: 'spring', stiffness: 700, damping: 48, mass: 0.6 }}
+          className={cn('knob absolute inset-0 rounded-[14px]', copied && 'bg-[color-mix(in_srgb,var(--accent)_16%,var(--knob))]')}
+          transition={glide ? { type: 'spring', stiffness: 700, damping: 48, mass: 0.6 } : { duration: 0 }}
         />
       )}
       <Tile item={item} />
