@@ -50,7 +50,20 @@ what you reach for:
 
 ## Installation
 
-Stash is built from source. You need the Xcode command line tools
+### With Homebrew
+
+```sh
+brew tap alexcalatyd/tap
+brew trust alexcalatyd/tap   # Homebrew asks you to trust third-party taps once
+brew install --cask alexcalatyd/tap/stash
+```
+
+Apple Silicon, macOS 14 or later. It isn't notarized by Apple, so the first time macOS blocks it: open it from
+**System Settings → Privacy & Security → Open Anyway** (Homebrew reminds you how).
+
+### From source
+
+You can also build it yourself. You need the Xcode command line tools
 (`xcode-select --install`) and Node:
 
 ```sh
